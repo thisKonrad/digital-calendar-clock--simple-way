@@ -1,13 +1,14 @@
 /* :: >> basic digital_calendar_clock main JS << :: */ 
 
+(function(){
 
-/* get the full year */
-
+/* full year */
 function calendarYear(){
 
     const calYear = new Date().getUTCFullYear();
 
-    const writeYear = document.querySelector('.date-year').innerText = calYear;
+    const writeYear = document.querySelector('.date-year')
+    .innerText = calYear;
 
 }
 calendarYear();
@@ -26,10 +27,7 @@ function numberDay(){
 numberDay();
 
 
-/* write the day name, get the current 
-* day with Date().getDay Method,
-* and assign a key value pair on it with Map() */
-
+/* day name */
 function calendarDay(){
 
     const dayWrite = document.querySelector('.day-of-day');
@@ -47,19 +45,16 @@ function calendarDay(){
     ]);
 
     /* fallback if iterated over index of 7 */
-    
     dateMap.set( 7,'no data' ); 
 
-    /* write the day out or 
-    *  write an error message if any connection fails */
-    
+    /* write day or error message(if any connection fails) */
     dayWrite.innerText = dateMap.get(dateDay || 'no data');
 
 }
 calendarDay();
 
 
-/* current month, same functionality like above...*/
+/* current month */
 function calendarMonth(){
 
     const monthWrite = document.querySelector('.date-month');
@@ -98,14 +93,11 @@ function getTime(){
     let minuteCount = dateTime.getMinutes();
     let secondCount = dateTime.getSeconds();
 
-
     const clockHour = document.querySelector('.digital-hour');
     const clockMinute = document.querySelector('.digital-minute');
     const clockSecond = document.querySelector('.digital-second');
-
-    
+            
     /* write numbers < 10 like: 01 not like: 1 */
-    
     hourCount < 10 ? clockHour.innerText =`0${hourCount}`:
     clockHour.innerText =`${hourCount}`;
 
@@ -117,7 +109,6 @@ function getTime(){
  
    
     /* :: am to pm session :: */
-    
     const session = document.querySelector('.session');
 
     if( hourCount >= 12){
@@ -134,3 +125,25 @@ function getTime(){
 };
 
 setInterval(getTime, 10);
+
+
+/* :: display switch light on / off function :: */
+const lightBtn = document.querySelector('#switchLight');
+const clockDisplay =  document.querySelector('.display');
+const span = document.querySelectorAll('span');
+
+function lightSwitch(){
+
+    clockDisplay.classList.toggle('lightSwitch')
+    lightBtn.firstChild.classList.toggle('buttonOn');
+
+    span.forEach((e)=> {
+        e.style.backgroundColor = 'transparent';
+    });
+
+}
+
+lightBtn.addEventListener('click', lightSwitch);
+
+    
+}());
